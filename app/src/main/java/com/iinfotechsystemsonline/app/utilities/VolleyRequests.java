@@ -324,16 +324,71 @@ public class VolleyRequests {
                 }) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
 
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/x-www-form-urlencoded");
-                Realm realm = Realm.getDefaultInstance();
-//                UserMDL user = realm.where(UserMDL.class).findFirst();
-//                assert user != null;
-//                headers.put("Authorization", "Bearer " +user.getToken());
+//                headers.put("Content-Type", "application/json");
 
-//                        headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
+                Realm realm = Realm.getDefaultInstance();
+                UserMDL user = realm.where(UserMDL.class).findFirst();
+                assert user != null;
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", "Bearer " +"bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
+//                headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
+                return headers;
+            }
+
+        };
+        jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(context).addToRequestQueue(jsObjRequest);
+
+    }
+
+    public void deleteObjSecureRequest(String url, final VolleyJsonCallBack callBack) {
+
+        callBack.onStart();
+        Log.d(TAG, "Date Url: " + url);
+
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.DELETE, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            callBack.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        callBack.onFinish();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        callBack.onError(error);
+
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+
+                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("Content-Type", "application/json");
+
+                Realm realm = Realm.getDefaultInstance();
+                UserMDL user = realm.where(UserMDL.class).findFirst();
+                assert user != null;
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", "Bearer " +"bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
+//                headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
                 return headers;
             }
 
@@ -422,17 +477,16 @@ public class VolleyRequests {
         }) {
 
             @Override
-            public Map<String, String> getHeaders() {
+            public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
 //                headers.put("Content-Type", "application/x-www-form-urlencoded");
                 headers.put("Content-Type", "application/json; charset=utf-8");
-                Realm realm = Realm.getDefaultInstance();
-
-                UserMDL user = realm.where(UserMDL.class).findFirst();
-                assert user != null;
-                headers.put("Authorization", "Bearer " +user.getToken());
+                headers.put("Authorization", "Bearer " +"bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
+//                headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
                 return headers;
             }
+
+
         };
         jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(
                 MY_SOCKET_TIMEOUT_MS,
@@ -472,11 +526,8 @@ public class VolleyRequests {
                 HashMap<String, String> headers = new HashMap<String, String>();
 //                headers.put("Content-Type", "application/x-www-form-urlencoded");
                 headers.put("Content-Type", "application/json; charset=utf-8");
-                Realm realm = Realm.getDefaultInstance();
-
-                UserMDL user = realm.where(UserMDL.class).findFirst();
-                assert user != null;
-                headers.put("Authorization", "Bearer " +user.getToken());
+                headers.put("Authorization", "Bearer " +"bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
+//                headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
                 return headers;
             }
         };
@@ -486,6 +537,50 @@ public class VolleyRequests {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequestQueue(jsonObjRequest);
     }
+
+
+//    public void deleteSecureData(String url,  final VolleyPostCallBack callBack) {
+//
+//        callBack.onStart();
+//        JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Request.Method.DELETE  , url,
+//                new JSONObject(params),
+//                new Response.Listener<JSONObject>() {
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            callBack.onSuccess(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        callBack.onFinish();
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                callBack.onError(error);
+//
+//            }
+//        }) {
+//
+//            @Override
+//            public Map<String, String> getHeaders() {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+////                headers.put("Content-Type", "application/x-www-form-urlencoded");
+//                headers.put("Content-Type", "application/json; charset=utf-8");
+//                headers.put("Authorization", "Bearer " +"bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
+////                headers.put("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTk2LjYxLjMyLjIzNjo0NDAwL2FwaS92MS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE1NDI1NjAwLCJleHAiOjE1MTU0MjkyMDAsIm5iZiI6MTUxNTQyNTYwMCwianRpIjoiTUg4b3hpMnJ1SllwaEVQaSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZLMWiSdsg_s4hX90To9tkY3HBi2XSPz5eftKmcw32E0");
+//                return headers;
+//            }
+//        };
+//        jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                MY_SOCKET_TIMEOUT_MS,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        MySingleton.getInstance(context).addToRequestQueue(jsonObjRequest);
+//    }
 
     public interface VolleyPostCallBack {
 

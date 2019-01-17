@@ -148,7 +148,7 @@ public class SigninActivity extends AppCompatActivity {
                                                 String token = data.getJSONObject(0).getString("token");
                                                 Log.d("token", token);
                                                 userMDL.setId(id);
-                                                userMDL.setToken(token);
+                                                userMDL.setToken("bkI5NHZRUVdNNXBHWG1VNWhMTHR3QzFnaGYrdEttL0lEYlVqb1A3aTdIb0tiTGxjclIxNHZOSnJBR1dBWmFXNkNpeS9DSEFnWlFKZW56dkZ4enRZMFE5Snp6NXduc0o0YWxoZU9FZG82Smc9fDlkNkhHNUpaZ2NsS2drRnNZdGt0TmFKbHZsOHM0VFRuSjNSamliZ25iS0VDc2NLRzRKMmFhRlZHQU1qVzl5aE50cGVOTjVEYzM1NGRBckRULzFWV3V3PT0=");
                                                 userMDL.setUsername(tiUsername.getEditText().getText().toString());
 
 
@@ -229,7 +229,7 @@ public class SigninActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(prefsLogin, true);
         editor.apply();
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, MenuActivity.class));
         finish();
 
 
@@ -261,7 +261,7 @@ public class SigninActivity extends AppCompatActivity {
         Boolean bl = prefs.getBoolean(Constants.prefsLogin, prefBooleanDefault);
 
         if (bl) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MenuActivity.class));
             finish();
         }
 

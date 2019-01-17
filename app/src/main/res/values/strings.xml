@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Infotech</string>
-    <string name="title_activity_signin">Signin</string>
+    <string name="title_activity_signin">Infotech</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_activity_create_age_group">Create</string>
+    <string name="title_activity_update_age_group">Update</string>
+    <string name="action_add">add</string>
+    <string name="title_activity_menu">Menu</string>
 </resources>

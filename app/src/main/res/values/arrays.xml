@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items_about">
+        <item>About E-prepaid</item>
+        <item>About Origgin</item>
+    </string-array>
+
+    <string-array name="items_network">
+        <item>Airtel Money</item>
+        <item>MTN Mobile Money</item>
+        <item>Tigo Cash</item>
+        <item>Vodafone Cash</item>
+    </string-array>
+    <string-array name="age_settings">
+
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+
+    <string-array name="items_settings_update">
+        <item>Change Password</item>
+        <item>Change Phone Number</item>
+    </string-array>
+    <string-array name="payment_settings">
+        tring-array name="meter_settings">
+        <!--<item>Meter Consumption</item>-->
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="payment_options" >
+        <!--<item>Meter Consumption</item>-->
+        <item>Pay with a Saved Number</item>
+        <item>Pay with a New Number</item>
+    </string-array>
+</resources>
+
+
